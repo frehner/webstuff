@@ -1,0 +1,241 @@
+body{
+	background-color: rgba(0,0,0,0.8);
+	}
+.footer {
+		text-align:center;
+		background:#003366; 
+		padding:1%; 
+		color:white; 
+		clear:both; 
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		/*position:fixed;*/
+		/*width:100%;*/
+		bottom:0px;
+		margin-top:1em;
+	}
+
+.navigation {
+		text-align:center;
+		background:#003366; 
+		padding:1%; 
+		color:white; 
+		/*clear:both; */
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		/*position:fixed;*/
+		/*width:100%;*/
+	}	
+	
+.wrapper{
+	background-color:#DDDDDD;
+	position:relative;
+	margin: 0px auto;
+	/*width:85%;*/
+	padding:2em;
+	padding-top:1em;
+	padding-bottom: 1em;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	margin-top:1em;
+	border:.3em solid;
+	}
+
+.outerwrapper{
+	background-color:#FFFFFF;
+	position:relative;
+	margin: 1em;
+	/*width:95%;*/
+	padding:1em;
+	/*padding-top:1em;
+	padding-bottom: 1em;*/
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	min-width: 250px;
+	border:.3em solid;
+	
+	}
+	
+.purchProd{
+		border:.5em solid #003366;
+		float:left;
+		width:20%;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		position:relative;
+		margin-right:2%;
+	}
+	
+#product_info{
+		/*background-color: rgba(0,0,0,0.8);
+		color:white;
+		padding: .5em;*/
+		background-color:#DDDDDD;
+		border:2px solid; 
+		/*width:70%;*/
+		border-radius:25px; 
+		padding:.5em; 
+		margin-top:1em; 
+		float:left;
+		margin-bottom:1em;
+		margin-left:.5em;
+		overflow:hidden;
+		width:23%;
+		min-width:150px;
+		min-height: 265px;
+	}
+
+.prodname{
+		z-index:100;
+		position:absolute;
+		left:0;
+		bottom:0;
+		color:white;
+		background-color: rgba(0,0,0,0.8);
+		width:97%;
+		padding:.2em;
+	}
+	
+#topbar{
+	width:100%;
+	margin-top:.5em;
+	padding-left:.5em;
+	}
+	
+#product_list{
+		border:2px solid; 
+		/*width:68%;*/
+		border-radius:25px; 
+		padding:.5em; 
+		margin-top:1em; 
+		/*float:left;*/
+		min-width:200px;
+		min-height: 265px;
+		background-color:#DDDDDD;
+		margin-bottom:1em;
+	}
+#login {float:right;}
+	
+.prodtitle{
+		font-size: 200%; 
+		text-align:center;
+	}
+	
+.product{
+		float:left; 
+		width:30%;
+		border:.3em solid;  
+		margin:1%; 
+		min-width:150px; 
+		max-width:200px;
+		position:relative;
+		padding:.5em;
+	}
+	
+#products{
+		border:2px solid; 
+		margin-left:1em; 
+		margin-top:1em; 
+		border-radius:25px; 
+		float:left; 
+		width:20%; 
+		min-width:100px;
+		padding:25px;
+	}
+	
+#centereddiv{
+		border:2px solid; 
+		background-color:#CCCC99; 
+		width:30%;
+		border-radius:25px;  
+		margin-left:auto; 
+		margin-right:auto; 
+		margin-top:5%; 
+		padding: 3em; 
+		padding-top:0px;
+	}
+	
+.formtext {
+	display: block;
+	margin-bottom:.5em;
+	width:150px;
+	float:left;
+	}
+	
+h1 {
+		text-align:center;
+	}	
+	
+.center{
+		margin:0px auto;
+		display:block;
+		text-align:center;
+	}
+
+.forminput {
+    border: 1px solid black; 
+    -webkit-box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    /*padding: 3px;*/
+    background:rgba(0,0,0,0.8);
+    /*margin: 0 0 2px 0;*/
+    /*margin-top:.2em;*/
+    color:white;
+    size: 63;
+}
+
+input {
+    border: 1px solid black; 
+    -webkit-box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    box-shadow: 
+      inset 0 0 2px  rgba(0,0,0,0.1),
+            0 0 4px rgba(0,0,0,0.1); 
+    padding: 3px;
+    background:rgba(0,0,0,0.8);
+    margin: 0 0 2px 0;
+    margin-top:.2em;
+    color:white;
+    size: 63;
+}
+
+.button{
+	background-color: rgba(0,0,0,0.8);
+	color:white;
+}
+
+.purchasebutton{
+	background-color: rgba(0,0,0,0.8);
+	color:white;
+}
+
+#prodname{
+		z-index:100;
+		position:absolute;
+		left:0;
+		bottom:0;
+		color:white;
+		background-color: rgba(0,0,0,0.8);
+		width:100%;
+		padding:.2em;
+	}
+
+#creationtable td {
+	padding-left:7px;
+	padding-right: 7px;
+}
+
+.hideproddetail {
+	visibility: hidden;
+}
