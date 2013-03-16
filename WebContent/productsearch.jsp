@@ -97,10 +97,10 @@
 		
 		$('body').delegate('.purchasebutton','click', function(){
 			var prodid = event.target.id;
-			console.log(prodid);
+			// console.log(prodid);
 			var hidden = '<input type="hidden" name="prodid" value='+prodid+'>';
 			hidden += '<input type="hidden" name="storeid" value="'+$('#storebox').val()+'">';
-			console.log(hidden);
+			// console.log(hidden);
 			$('#product_list').append(hidden);
 			$('#purchase_form').submit();
 		});

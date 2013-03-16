@@ -239,3 +239,15 @@ input {
 .hideproddetail {
 	visibility: hidden;
 }
+
+a:link{
+	color:#FFFFFF;
+}
+
+a:visited{
+	color:#444444;
+}
+
+a:hover{
+	color:#444444;
+}
