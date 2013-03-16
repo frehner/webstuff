@@ -24,6 +24,11 @@ public class CreateAccount implements Action{
 			c1.setPassword(request.getParameter("password1"));
 			c1.save();
 			
+			Membership m1 = BusinessObjectDAO.getInstance().create("Membership");
+			m1.setCreditcard(request.getParameter("cc1"));
+			m1.setCustomerid(c1.getId());
+			m1.save();
+			
 			//request is temporary
 			request.setAttribute("customer", c1);
 			

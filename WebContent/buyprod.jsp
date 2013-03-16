@@ -5,14 +5,14 @@
 <%@ page import="edu.byu.isys413.afreh20.mystuff.*" %>
 <div class="wrapper">
 <%Product p1 = (Product)request.getAttribute("product");%>
-	<form method="POST" action="">
+	<form method="POST" action="edu.byu.isys413.afreh20.actions.CompletePurchase.action">
 		<table>
 			<tr>
 				<td>
 					Name:
 				</td>
 				<td> <%
-					out.println(p1.getName());
+					out.print(p1.getName());
 					%>
 				</td>
 			</tr>
@@ -21,7 +21,7 @@
 					Quantity:
 				</td>
 				<td><%
-					out.println(request.getAttribute("quantity"));
+					out.print(request.getAttribute("quantity"));
 					%>
 				</td>
 			</tr>
@@ -30,19 +30,51 @@
 					Price:
 				</td>
 				<td>$<%
-					out.println(p1.getPrice()+"");
+					out.print(p1.getPrice()+"");
 					%>
 				</td>
+			</tr>
+			<tr>
+				<td>
+					Tax:
+				</td>
+				<td>$<%
+					out.print(request.getAttribute("tax"));
+					%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Total:
+				</td>
+				<td>$<%
+					out.print(request.getAttribute("total"));
+					%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Store and shelf location:
+				</td>
+				<td><%
+					out.print(request.getAttribute("storelocation")+" at "+request.getAttribute("location"));
+					%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Method:
+				</td>
+				<td>
+					<input type="radio" name="delivery" value="delivery" checked> Delivery 
+					<input type="radio" name="delivery" value="pickup"> Pickup
 			</tr>
 			<tr>
 				<td>
 					Credit Card:
 				</td> 
 				<td>
-					<input class="forminput" type="text" value="
-					<%Customer c1 = (Customer)session.getAttribute("customer");
-					//TODO print out the customer cc info.%>
-					">
+					<input class="forminput" type="text" value="<% out.print(request.getAttribute("creditcard")); %>">
 				</td>
 			</tr>
 			<tr>
@@ -51,6 +83,7 @@
 				</td>
 				<td>
 					<input class="forminput" type="text" value="<% 
+						Customer c1 = (Customer)session.getAttribute("customer");
 						out.println(c1.getAddress());
 					%>">
 				</td>
@@ -58,10 +91,15 @@
 			<tr>
 				<td></td>
 				<td>
-					<button style="float:right;" type="button" class="button">Purchase!</button>
+					<button style="float:right;" class="button">Purchase!</button>
 				</td>
 			</tr>
 		</table>
+		<input type=hidden name="product_type" value="<%out.print(request.getAttribute("producttype"));%>">
+		<input type=hidden name="store_id" value="<%out.print(request.getAttribute("storeid"));%>">
+		<input type=hidden name="tax" value="<%out.print(request.getAttribute("tax"));%>">
+		<input type=hidden name="price" value="<%out.print(p1.getPrice());%>">
+		<input type=hidden name="total" value="<%out.print(request.getAttribute("total"));%>">
 	</form>
 </div>
 <jsp:include page="/footer.jsp"/>

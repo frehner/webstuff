@@ -30,6 +30,8 @@ public class Login implements Action{
 				
 				request.setAttribute("stores", allStores);
 				session.setAttribute("customer", c1);
+				Membership m1 = BusinessObjectDAO.getInstance().searchForBO("Membership", new SearchCriteria("customerid", c1.getId()));
+				session.setAttribute("membership", m1);
 				session.setAttribute("loggedin", true);
 				return "productsearch.jsp";
 			}else {

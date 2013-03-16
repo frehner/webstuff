@@ -37,7 +37,7 @@ public class ProdAjax implements Action{
 					PhysicalProd temppprod = BusinessObjectDAO.getInstance().searchForBO("PhysicalProd", new SearchCriteria("id", prod.getId()), new SearchCriteria("store_id", s1.getId()));
 //					PhysicalProd temppprod = BusinessObjectDAO.getInstance().read(prod.getId());
 					if (temppprod != null){
-						System.out.println(temppprod.getType());
+//						System.out.println(temppprod.getType());
 						//if there is a physical prod in the store, then check to see if it is for sale
 						if(temppprod.getPhystype().equals("ForSale")){
 							ForSale tempforsale = BusinessObjectDAO.getInstance().read(temppprod.getId());
