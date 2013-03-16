@@ -18,11 +18,19 @@
 			</tr>
 			<tr>
 				<td>
-					Quantity:
+					Quantity Available:
 				</td>
 				<td><%
 					out.print(request.getAttribute("quantity"));
 					%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Quantity Buying:
+				</td>
+				<td>
+					<input type="text" class="forminput" name="buying_quant" value="1">
 				</td>
 			</tr>
 			<tr>
@@ -100,6 +108,7 @@
 		<input type=hidden name="tax" value="<%out.print(request.getAttribute("tax"));%>">
 		<input type=hidden name="price" value="<%out.print(p1.getPrice());%>">
 		<input type=hidden name="total" value="<%out.print(request.getAttribute("total"));%>">
+		<input type=hidden name="prodid" value="<%out.print(p1.getId());%>">
 	</form>
 </div>
 <jsp:include page="/footer.jsp"/>

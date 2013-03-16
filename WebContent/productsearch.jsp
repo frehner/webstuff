@@ -77,7 +77,7 @@
 					//console.log('success');
 					//console.log(data);
 					console.log($.parseJSON(data));
-					var htmlstring = "";
+					var htmlstring = "<div class='prodtitle'> Products </div>";
 					//var parsedjson = $.parseJSON(data);
 					var jsonlength = $.parseJSON(data).length;
 					//console.log(jsonlength);
@@ -85,7 +85,7 @@
 					
 					for(var ii=0;ii<jsonlength;ii++){
 						//console.log(ii);
-						htmlstring += '<div class="prodtitle"> Products </div><div class="product"> Product Name: '+parsedData[ii].name+'<br>Product Price: $'+parsedData[ii].price+'<br><button type="button" class="purchasebutton" id="'+parsedData[ii].id+'">Purchase!</button> </div>';
+						htmlstring += '<div class="product"> Product Name: '+parsedData[ii].name+'<br>Product Price: $'+parsedData[ii].price+'<br><button type="button" class="purchasebutton" id="'+parsedData[ii].id+'">Purchase!</button> </div>';
 					}
 					
 					$('#product_list').html(htmlstring);

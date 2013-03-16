@@ -48,8 +48,8 @@ public class ProdAjax implements Action{
 						
 					}
 		
-				}else{
-					StoreProd tempsprod = BusinessObjectDAO.getInstance().searchForBO("StoreProd", new SearchCriteria("cprod_id", prod.getId()), new SearchCriteria("store_id", s1.getId()));
+				}else if(prod.getType().equals("ConceptualProd")){
+					StoreProd tempsprod = BusinessObjectDAO.getInstance().searchForBO("StoreProd", new SearchCriteria("cprod_id", prod.getId()), new SearchCriteria("store_id", s1.getId()), new SearchCriteria("quantity", 0, 2));
 					if (tempsprod != null){
 						spList.add(tempsprod);
 					}

@@ -17,17 +17,34 @@ public class CompletePurchase implements Action {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		try {
-			//TODO do stuff to the products to decrease counts.
-			
 			Transaction trans = BusinessObjectDAO.getInstance().create("Transaction");
 			Customer cust = (Customer) session.getAttribute("customer");
 			String storeid = request.getParameter("store_id");
-			System.out.println(storeid);
-			storeid.trim();
+//			System.out.println(storeid);
 			Store store = BusinessObjectDAO.getInstance().read(request.getParameter("store_id"));
 			Employee emp = BusinessObjectDAO.getInstance().read(store.getManagerid());
 			
-//			trans.setCommissionTotal(commissionTotal);
+			if(request.getParameter("product_type").equals("Physical")){
+				ForSale fs1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));
+				fs1.setType("sold");
+				fs1.save();
+			}else{
+				ConceptualProd cp1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));
+				StoreProd tempsp = BusinessObjectDAO.getInstance().searchForBO("StoreProd", new SearchCriteria("cprod_id", cp1.getId()), new SearchCriteria("store_id", store.getId()));
+				tempsp.setQuantity(tempsp.getQuantity()-Double.parseDouble(request.getParameter("buying_quant")));
+				tempsp.save();
+			}
+			
+			Sale sale = BusinessObjectDAO.getInstance().create("Sale");
+			sale.setQuantity(Double.parseDouble(request.getParameter("buying_quant")));
+			sale.setType("sale");
+			sale.setChargeamt(Double.parseDouble(request.getParameter("price")));
+			sale.setTransaction_id(trans.getId());
+			sale.save();
+			
+			//TODO get commission total?
+//			trans.setCommissionTotal(sale.getChargeamt() * prod.getCommissionRate());
+			
 			trans.setSubtotal(Double.parseDouble(request.getParameter("price")));
 			trans.setTax(Double.parseDouble(request.getParameter("tax")));
 			trans.setTotal(Double.parseDouble(request.getParameter("total")));
