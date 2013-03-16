@@ -28,14 +28,26 @@ public class ProdAjax implements Action{
 //			List<PhysicalProd> ppList = BusinessObjectDAO.getInstance().searchForList("PhysicalProd", new SearchCriteria("store_id", s1.getId()));
 			
 			List<StoreProd> spList = new LinkedList<StoreProd>();
-			List<PhysicalProd> ppList = new LinkedList<PhysicalProd>();
+//			List<PhysicalProd> ppList = new LinkedList<PhysicalProd>();
+			List<ForSale> fsList = new LinkedList<ForSale>();
 			List<Product> prodList = BusinessObjectDAO.getInstance().searchForList("Product", new SearchCriteria("name", searchtext+"%", 6));
 			for(Product prod : prodList){
 				if(prod.getType().equals("PhysicalProd")){
+					//see if there is a physical prod in this store with that text.
 					PhysicalProd temppprod = BusinessObjectDAO.getInstance().searchForBO("PhysicalProd", new SearchCriteria("id", prod.getId()), new SearchCriteria("store_id", s1.getId()));
+//					PhysicalProd temppprod = BusinessObjectDAO.getInstance().read(prod.getId());
 					if (temppprod != null){
-						ppList.add(temppprod);
+						System.out.println(temppprod.getType());
+						//if there is a physical prod in the store, then check to see if it is for sale
+						if(temppprod.getPhystype().equals("ForSale")){
+							ForSale tempforsale = BusinessObjectDAO.getInstance().read(temppprod.getId());
+							if(tempforsale != null){
+								fsList.add(tempforsale);
+							}
+						}
+						
 					}
+		
 				}else{
 					StoreProd tempsprod = BusinessObjectDAO.getInstance().searchForBO("StoreProd", new SearchCriteria("cprod_id", prod.getId()), new SearchCriteria("store_id", s1.getId()));
 					if (tempsprod != null){
@@ -61,11 +73,20 @@ public class ProdAjax implements Action{
 			}
 			
 			//to put the physcial prods in the list
-			for(PhysicalProd pp : ppList){
+//			for(PhysicalProd pp : ppList){
+//				HashMap<String, String> tempHash = new HashMap<String, String>();
+//				tempHash.put("price", pp.getPrice()+"");
+//				tempHash.put("name", pp.getName());
+//				tempHash.put("id", pp.getId());
+////				prodMap.put(pp.getId(), tempHash);
+//				jsonthingy.add(tempHash);
+//			}
+			
+			for(ForSale fs : fsList){
 				HashMap<String, String> tempHash = new HashMap<String, String>();
-				tempHash.put("price", pp.getPrice()+"");
-				tempHash.put("name", pp.getName());
-				tempHash.put("id", pp.getId());
+				tempHash.put("price", fs.getPrice()+"");
+				tempHash.put("name", fs.getName());
+				tempHash.put("id", fs.getId());
 //				prodMap.put(pp.getId(), tempHash);
 				jsonthingy.add(tempHash);
 			}
