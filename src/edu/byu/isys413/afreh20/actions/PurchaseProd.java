@@ -20,6 +20,7 @@ public class PurchaseProd implements Action{
 		Store s1 = BusinessObjectDAO.getInstance().read(request.getParameter("storeid"));
 		request.setAttribute("storelocation", s1.getLocation());
 		request.setAttribute("storeid", s1.getId());
+		request.setAttribute("taxrate", s1.getSalestaxrate());
 		try{
 			Product p1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));
 			if(p1.getType().equals("PhysicalProd")){

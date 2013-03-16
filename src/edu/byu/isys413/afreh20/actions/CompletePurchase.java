@@ -1,6 +1,8 @@
 package edu.byu.isys413.afreh20.actions;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +26,7 @@ public class CompletePurchase implements Action {
 			Store store = BusinessObjectDAO.getInstance().read(request.getParameter("store_id"));
 			Employee emp = BusinessObjectDAO.getInstance().read(store.getManagerid());
 			
-			if(request.getParameter("product_type").equals("Physical")){
+			if(request.getParameter("product_type").equals("PhysicalProd")){
 				ForSale fs1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));
 				fs1.setType("sold");
 				fs1.save();
@@ -38,14 +40,14 @@ public class CompletePurchase implements Action {
 			Sale sale = BusinessObjectDAO.getInstance().create("Sale");
 			sale.setQuantity(Double.parseDouble(request.getParameter("buying_quant")));
 			sale.setType("sale");
-			sale.setChargeamt(Double.parseDouble(request.getParameter("price")));
+			sale.setChargeamt(Double.parseDouble(request.getParameter("subtotal")));
 			sale.setTransaction_id(trans.getId());
 			sale.save();
 			
 			//TODO get commission total?
 //			trans.setCommissionTotal(sale.getChargeamt() * prod.getCommissionRate());
 			
-			trans.setSubtotal(Double.parseDouble(request.getParameter("price")));
+			trans.setSubtotal(Double.parseDouble(request.getParameter("subtotal")));
 			trans.setTax(Double.parseDouble(request.getParameter("tax")));
 			trans.setTotal(Double.parseDouble(request.getParameter("total")));
 			
@@ -99,7 +101,7 @@ public class CompletePurchase implements Action {
 					dc.setIsdebit(false);
 					dc.setJournalentry_id(je.getId());
 					dc.save();
-				}
+				}//add for inventory?
 
 				Commission comm = BusinessObjectDAO.getInstance().create("Commission");
 				comm.setAmount(trans.getCommissionTotal());
@@ -107,11 +109,17 @@ public class CompletePurchase implements Action {
 				comm.setEmployee_id(emp.getId());
 				comm.setTransaction_id(trans.getId());
 				comm.save();
+				
 			}
+			request.setAttribute("message", "<b style='color:red'>Your purchase was successfully completed! Buy more stuff</b>");
+			List<Store> allStores = new LinkedList<Store>();
+			allStores = BusinessObjectDAO.getInstance().searchForAll("Store");
+			request.setAttribute("stores", allStores);
+			return "productsearch.jsp";
 		} catch (Exception e) {
 			throw new WebException("<b>Could not process purchase: " + e.getMessage()+"</b>");
 		}
 
-		return "yay";
+		
 	}
 }

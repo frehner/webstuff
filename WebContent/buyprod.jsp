@@ -30,12 +30,12 @@
 					Quantity Buying:
 				</td>
 				<td>
-					<input type="text" class="forminput" name="buying_quant" value="1">
+					<input id="buying_quant" type="text" class="forminput" name="buying_quant" value="1">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Price:
+					Price Per Unit:
 				</td>
 				<td>$<%
 					out.print(p1.getPrice()+"");
@@ -44,9 +44,18 @@
 			</tr>
 			<tr>
 				<td>
+					Subtotal:
+				</td>
+				<td id="subtotal">$<%
+					out.print(p1.getPrice());
+					%>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					Tax:
 				</td>
-				<td>$<%
+				<td id="tax">$<%
 					out.print(request.getAttribute("tax"));
 					%>
 				</td>
@@ -55,7 +64,7 @@
 				<td>
 					Total:
 				</td>
-				<td>$<%
+				<td id="total">$<%
 					out.print(request.getAttribute("total"));
 					%>
 				</td>
@@ -105,10 +114,40 @@
 		</table>
 		<input type=hidden name="product_type" value="<%out.print(request.getAttribute("producttype"));%>">
 		<input type=hidden name="store_id" value="<%out.print(request.getAttribute("storeid"));%>">
-		<input type=hidden name="tax" value="<%out.print(request.getAttribute("tax"));%>">
-		<input type=hidden name="price" value="<%out.print(p1.getPrice());%>">
-		<input type=hidden name="total" value="<%out.print(request.getAttribute("total"));%>">
+		<input type=hidden id="hiddentax" name="tax" value="<%out.print(request.getAttribute("tax"));%>">
+		<input type=hidden id="hiddensubtotal" name="subtotal" value="<%out.print(p1.getPrice());%>">
+		<input type=hidden id="hiddentotal" name="total" value="<%out.print(request.getAttribute("total"));%>">
 		<input type=hidden name="prodid" value="<%out.print(p1.getId());%>">
 	</form>
 </div>
+
+<script type="text/javascript">
+	$(function(){
+		var price = <% out.print(p1.getPrice()); %>;
+		var tax = <% out.print(request.getAttribute("taxrate")); %>;
+		
+		$('#buying_quant').keyup(function(){
+			if($('this').val != ""){
+				try{
+					var quantity = $('#buying_quant').val();
+					//console.log(quantity);
+					var subtotal = quantity * price;
+					var taxtotal = subtotal * tax;
+					var total = taxtotal + quantity * price;
+					//console.log(taxtotal);
+					//console.log(total);
+					$('#subtotal').html('$'+subtotal);
+					$('#tax').html('$'+taxtotal);
+					$('#total').html('$'+total);
+					$('#hiddensubtotal').val(subtotal);
+					$('#hiddentax').val(taxtotal);
+					$('#hiddentotal').val(total);
+				}catch(err){
+					$('#buying_quant').val("");
+				}
+			}
+			
+		});
+	});
+</script>
 <jsp:include page="/footer.jsp"/>

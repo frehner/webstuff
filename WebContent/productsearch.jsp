@@ -23,6 +23,7 @@
 	</span>	
 	<span style="margin-left:.2em;">
 	<!-- <button class="button" id="getpics">Get Photos</button> -->
+	<% if(request.getAttribute("message") != null){out.print(request.getAttribute("message"));} %>
 	</span>
 </div>
 <form id="purchase_form" type="GET" action="edu.byu.isys413.afreh20.actions.PurchaseProd.action">
