@@ -39,7 +39,7 @@ public class ProdAjax implements Action{
 					if (temppprod != null){
 //						System.out.println(temppprod.getType());
 						//if there is a physical prod in the store, then check to see if it is for sale
-						if(temppprod.getPhystype().equals("ForSale")){
+						if(temppprod.getPhystype().equals("ForSale") && temppprod.getStatus().equals("available")){
 							ForSale tempforsale = BusinessObjectDAO.getInstance().read(temppprod.getId());
 							if(tempforsale != null){
 								fsList.add(tempforsale);

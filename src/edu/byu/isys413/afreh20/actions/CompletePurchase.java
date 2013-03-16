@@ -28,7 +28,7 @@ public class CompletePurchase implements Action {
 			
 			if(request.getParameter("product_type").equals("PhysicalProd")){
 				ForSale fs1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));
-				fs1.setType("sold");
+				fs1.setStatus("sold");
 				fs1.save();
 			}else{
 				ConceptualProd cp1 = BusinessObjectDAO.getInstance().read(request.getParameter("prodid"));

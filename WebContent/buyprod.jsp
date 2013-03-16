@@ -125,23 +125,29 @@
 	$(function(){
 		var price = <% out.print(p1.getPrice()); %>;
 		var tax = <% out.print(request.getAttribute("taxrate")); %>;
+		var maxquant = <% out.print(request.getAttribute("quantity")); %>;
 		
 		$('#buying_quant').keyup(function(){
 			if($('this').val != ""){
 				try{
 					var quantity = $('#buying_quant').val();
-					//console.log(quantity);
-					var subtotal = quantity * price;
-					var taxtotal = subtotal * tax;
-					var total = taxtotal + quantity * price;
-					//console.log(taxtotal);
-					//console.log(total);
-					$('#subtotal').html('$'+subtotal);
-					$('#tax').html('$'+taxtotal);
-					$('#total').html('$'+total);
-					$('#hiddensubtotal').val(subtotal);
-					$('#hiddentax').val(taxtotal);
-					$('#hiddentotal').val(total);
+					if (quantity > maxquant){
+						$('#buying_quant').val(maxquant);
+					}else{
+						//console.log(quantity);
+						var subtotal = quantity * price;
+						var taxtotal = subtotal * tax;
+						var total = taxtotal + quantity * price;
+						//console.log(taxtotal);
+						//console.log(total);
+						$('#subtotal').html('$'+subtotal);
+						$('#tax').html('$'+taxtotal);
+						$('#total').html('$'+total);
+						$('#hiddensubtotal').val(subtotal);
+						$('#hiddentax').val(taxtotal);
+						$('#hiddentotal').val(total);
+					}
+					
 				}catch(err){
 					$('#buying_quant').val("");
 				}
