@@ -23,28 +23,57 @@ public class Login implements Action{
 		HttpSession session = request.getSession();
 //		System.out.println("trying");
 		if(request.getParameter("ismobile") != null){
-//			System.out.println("in mobile area");
 			Gson gson = new Gson();
 			HashMap<String, String> responseJson = new HashMap<String, String>();
-			
-			Customer c1 = BusinessObjectDAO.getInstance().searchForBO("Customer", new SearchCriteria("email", request.getParameter("username")));
-			if(c1 != null){
-				if(c1.getPassword().equals(request.getParameter("password"))){
-					responseJson.put("custid", c1.getId());
-					responseJson.put("username", c1.getEmail());
-					responseJson.put("status", "Success");
+			try{
+//				System.out.println("in mobile area");
+				
+				
+				Customer c1 = BusinessObjectDAO.getInstance().searchForBO("Customer", new SearchCriteria("email", request.getParameter("username")));
+				if(c1 != null){
+					if(c1.getPassword().equals(request.getParameter("password"))){
+						
+						List<BusinessObject> allPics = BusinessObjectDAO.getInstance().searchForList("Picture", new SearchCriteria("customerid", c1.getId()));
+						HashMap<String, HashMap<String, String>> picMap = new HashMap<String, HashMap<String, String>>();
+						
+						int i = 0;
+						for(BusinessObject bo: allPics){
+							HashMap<String, String> singlePic = new HashMap<String, String>();
+							Picture temppic = (Picture) bo;
+							singlePic.put("id", temppic.getId());
+							singlePic.put("caption", temppic.getCaption());
+							singlePic.put("picname", temppic.getPicname());
+							singlePic.put("pic", temppic.getPic());
+							picMap.put(i+"", singlePic);
+							i++;
+							System.out.println(i);
+						}
+						
+						String picJson = gson.toJson(picMap);
+						responseJson.put("pics", picJson);
+						responseJson.put("custid", c1.getId());
+						responseJson.put("username", c1.getEmail());
+						responseJson.put("status", "Success");
+					} else {
+						responseJson.put("status", "Incorrect Password");
+					}
 				} else {
-					responseJson.put("status", "Incorrect Password");
+					responseJson.put("status", "Account not found");
 				}
-			} else {
-				responseJson.put("status", "Account not found");
+				
+//				responseJson.put("testing", "This works suckas");
+				String json = gson.toJson(responseJson);
+				request.setAttribute("mobiledata", json);			
+				return "mobile_return.jsp";
+				
+			} catch (Exception e){
+				e.printStackTrace();
+				responseJson.put("status", "horrible failure");
+				String json = gson.toJson(responseJson);
+				request.setAttribute("mobiledata", json);
+				return "mobile_return.jsp";
 			}
-			
-//			responseJson.put("testing", "This works suckas");
-			String json = gson.toJson(responseJson);
-			request.setAttribute("mobiledata", json);			
-			return "mobile_return.jsp";
-			
+//			
 		} else{
 			try{
 //				System.out.println("not in mobile area");
