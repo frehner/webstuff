@@ -44,7 +44,7 @@ public class CreateAccount implements Action{
 			
 			BatchEmail be = new BatchEmail();
 			//TODO the next line should be uncommented for live stuff.  I just don't wanna spam people.
-//			be.send("noreply@intexmystuff.com", "Do not reply", c1.getEmail(), "Validate Account", messageBody);
+			be.send("noreply@intexmystuff.com", "Do not reply", c1.getEmail(), "Validate Account", messageBody);
 			
 			request.setAttribute("message", "An email was sent to your account. You can click on the link there or get the validation code and enter it here.");
 			

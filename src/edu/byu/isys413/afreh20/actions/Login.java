@@ -34,9 +34,9 @@ public class Login implements Action{
 					if(c1.getPassword().equals(request.getParameter("password"))){
 						
 						List<BusinessObject> allPics = BusinessObjectDAO.getInstance().searchForList("Picture", new SearchCriteria("customerid", c1.getId()));
-						HashMap<String, HashMap<String, String>> picMap = new HashMap<String, HashMap<String, String>>();
-						
-						int i = 0;
+//						HashMap<String, HashMap<String, String>> picMap = new HashMap<String, HashMap<String, String>>();
+						ArrayList<HashMap<String, String>> picList = new ArrayList<HashMap<String, String>>();
+//						int i = 0;
 						for(BusinessObject bo: allPics){
 							HashMap<String, String> singlePic = new HashMap<String, String>();
 							Picture temppic = (Picture) bo;
@@ -44,12 +44,14 @@ public class Login implements Action{
 							singlePic.put("caption", temppic.getCaption());
 							singlePic.put("picname", temppic.getPicname());
 							singlePic.put("pic", temppic.getPic());
-							picMap.put(i+"", singlePic);
-							i++;
-							System.out.println(i);
+//							picMap.put(i+"", singlePic);
+//							i++;
+							picList.add(singlePic);
+//							System.out.println(i);
 						}
 						
-						String picJson = gson.toJson(picMap);
+//						String picJson = gson.toJson(picMap);
+						String picJson = gson.toJson(picList);
 						responseJson.put("pics", picJson);
 						responseJson.put("custid", c1.getId());
 						responseJson.put("username", c1.getEmail());
