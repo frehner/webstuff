@@ -33,7 +33,9 @@ public class SavePicture implements Action{
 			p1.setPicname(request.getParameter("picname"));
 			p1.save();
 			
-			responseJson.put("newId", p1.getId());
+			if(request.getParameter("newpic").equals("true")){
+				responseJson.put("newId", p1.getId());
+			}
 			responseJson.put("status", "Success");
 			String json = gson.toJson(responseJson);
 			request.setAttribute("mobiledata", json);
