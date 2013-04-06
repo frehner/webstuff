@@ -20,16 +20,18 @@ public class SavePicture implements Action{
 		Gson gson = new Gson();
 		HashMap<String, String> responseJson = new HashMap<String, String>();
 		try{
-			Picture p1;
+			Picture p1 = null;
 			if(request.getParameter("newpic").equals("true")){
 				p1 = BusinessObjectDAO.getInstance().create("Picture");
+				p1.setPic(request.getParameter("pic"));
+				p1.setCustomerid(request.getParameter("custId"));
 			} else {
 				p1 = BusinessObjectDAO.getInstance().read(request.getParameter("picId"));
+//				p1 = BusinessObjectDAO.getInstance().searchForBO("Picture", new SearchCriteria("id", request.getParameter("picId")));
 			}
-			
+//			System.out.println(request.getParameter("caption"));
+//			System.out.println(request.getParameter("picId"));
 			p1.setCaption(request.getParameter("caption"));
-			p1.setCustomerid(request.getParameter("custId"));
-			p1.setPic(request.getParameter("pic"));
 			p1.setPicname(request.getParameter("picname"));
 			p1.save();
 			
